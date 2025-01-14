@@ -11,7 +11,7 @@ theme: sketchy   # cosmo bootswatch theme
 ```{r setup}
 library(knitr)
 library(tidyverse)
-
+post_meal_data <- read_csv2(here::here("~/Desktop/LearningR/data/post-meal-insulin.csv"))
 ```
 
 ## About me
@@ -35,3 +35,17 @@ I am taller than i am **wide**
 ## Testing for Git
 
 Then type out a sentence below the header with some random words, maybe about the weather.
+
+## Showing the data
+
+```{r, eval=FALSE}
+post_meal_data
+
+```
+
+```{r, eval=FALSE}
+
+glimpse(post_meal_data)
+head(post_meal_data)
+
+```
