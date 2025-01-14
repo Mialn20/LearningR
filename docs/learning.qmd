@@ -1,0 +1,33 @@
+---
+title: "Reproducible documents"
+author: "Mikkel Alnor"
+format: html
+code-fold: true
+theme: sketchy   # cosmo bootswatch theme
+---
+
+# Setup code chuck
+
+```{r setup}
+library(knitr)
+library(tidyverse)
+
+```
+
+## About me
+
+-   PhD student
+
+-   Owns many shrimps
+
+-   From SDU, FGM, ATLAS
+
+I started my PhD the 1th of *October*
+
+I am taller than i am **wide**
+
+## Simple code
+
+```{r}
+3*3
+```
