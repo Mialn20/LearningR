@@ -31,3 +31,7 @@ I am taller than i am **wide**
 ```{r}
 3*3
 ```
+
+## Testing for Git
+
+Then type out a sentence below the header with some random words, maybe about the weather.
