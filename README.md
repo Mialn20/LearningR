@@ -7,6 +7,7 @@ This project is about learning git, Github and general R programming
 The following folders contain:
 
 -   `data/`:
+-   `data-raw/`:
 -   `docs/`:
 -   `R/`:
 
