@@ -12,6 +12,8 @@ highlight-style: tango
 ```{r setup, message=FALSE,warning=FALSE}
 library(knitr)
 library(tidyverse)
+library(ggplot2)
+library(viridis)
 post_meal_data <- read_csv2(here::here("data/post-meal-insulin.csv"))
 ```
 
@@ -61,3 +63,32 @@ mistakes in the data BMI is combined NA values id column
 colnames(post_meal_data)
 post_meal_data$id
 ```
+
+## 9 - Basic data visualization
+
+```{r}
+#| fig-cap: "Distribution of BMI."
+#| label: fig-bmi-histo
+
+ggplot(post_meal_data,aes(x = BMI)) +
+  geom_histogram(bins=10)+
+    scale_fill_viridis(discrete=T)
+```
+
+## Exercise: discrete plots
+
+```{r}
+```{r}
+#| fig-cap: "Group"
+#| label: fig-group
+ggplot(post_meal_data, aes(x = Group)) +
+  geom_bar()
+
+```
+
+See @fig-___ above for a cool plot!
+
+
+```
+
+
