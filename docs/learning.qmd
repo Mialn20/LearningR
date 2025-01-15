@@ -51,3 +51,13 @@ head(post_meal_data)
 
 ```
 
+## tidy data
+
+Each variable is a column; each column is a variable. Each observation is a row; each row is an observation. Each value is a cell; each cell is a single value.
+
+mistakes in the data BMI is combined NA values id column
+
+```{r,echo=T, results='hide'}
+colnames(post_meal_data)
+post_meal_data$id
+```
