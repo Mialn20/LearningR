@@ -29,3 +29,10 @@ You'll need to have remotes installed for this to work.
 For more information on this folder and file workflow and setup, check
 out the [prodigenr](https://rostools.github.io/prodigenr) online
 documentation.
+
+# Extra
+
+Use this to print the html file in chrome without margins:
+```         
+pagedown::chrome_print(input = here::here("docs/learning.html"),options = list(marginTop=0,marginBottom=0,marginLeft=0,marginRight=0))
+```
