@@ -4,7 +4,7 @@ author: "Mikkel Alnor"
 format: html
 code-fold: FALSE
 theme: Morph   # cosmo bootswatch theme
-highlight-style: dracula
+highlight-style: tango
 ---
 
 # Setup code chuck
@@ -50,3 +50,4 @@ glimpse(post_meal_data)
 head(post_meal_data)
 
 ```
+
