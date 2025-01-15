@@ -3,8 +3,8 @@ title: "Reproducible documents"
 author: "Mikkel Alnor"
 format: html
 code-fold: FALSE
-theme: Morph   # cosmo bootswatch theme
-highlight-style: tango
+theme: darkly   # cosmo bootswatch theme
+highlight-style: arrow
 ---
 
 # Setup code chuck
@@ -13,7 +13,6 @@ highlight-style: tango
 library(knitr)
 library(tidyverse)
 library(ggplot2)
-library(viridis)
 post_meal_data <- read_csv2(here::here("data/post-meal-insulin.csv"))
 ```
 
@@ -67,28 +66,68 @@ post_meal_data$id
 ## 9 - Basic data visualization
 
 ```{r}
-#| fig-cap: "Distribution of BMI."
 #| label: fig-bmi-histo
+#| fig-cap: "Distribution of BMI."
 
 ggplot(post_meal_data,aes(x = BMI)) +
-  geom_histogram(bins=10)+
-    scale_fill_viridis(discrete=T)
+  geom_histogram(bins=10)
 ```
 
 ## Exercise: discrete plots
 
 ```{r}
+#| label: fig-Discrete-plots
+#| fig-cap: "Glykemi and Groups"
+
+post_meal_data |>
+  ggplot(aes(x=Group,fill=as.factor(glykemi)))+
+    geom_bar()+
+    labs(fill="Glykemi")
+```
+
+## Side by side plots
+
 ```{r}
-#| fig-cap: "Group"
-#| label: fig-group
-ggplot(post_meal_data, aes(x = Group)) +
+#| label: fig-bmi-glycemia
+#| fig-cap: "BMI and glycemia, side by side."
+#| fig-subcap:
+#|   - "Distribution of BMI."
+#|   - "Number of those with glycemia."
+#| layout-ncol: 2
+
+ggplot(post_meal_data, aes(x = BMI)) +
+  geom_histogram(bins = 10)
+
+ggplot(post_meal_data, aes(x = glykemi)) +
   geom_bar()
 
-```
-
-See @fig-___ above for a cool plot!
-
 
 ```
 
+## 9.11 Plotting two continuous variables
 
+```{r}
+#| label: fig-BMI-auc_pg
+#| fig-cap: "BMI and auc_pg,"
+#| fig-subcap:
+#|  - "geom point"
+#|  - "geom hex"
+#|  - "geom point and geom smooth"
+#| layout-ncol: 3
+
+post_meal_data |>
+  ggplot(aes(x = BMI, y = auc_pg)) +
+    geom_point()
+
+post_meal_data |>
+  ggplot(aes(x = BMI, y = auc_pg)) +
+    geom_hex()
+
+post_meal_data |>
+  ggplot(aes(x = BMI, y = auc_pg)) +
+    geom_point()+
+    geom_smooth(fill = "red4")
+
+```
+
+# **10 - Collaborating with GitHub**

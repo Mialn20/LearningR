@@ -64,10 +64,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="learning_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="learning_files/libs/quarto-html/anchor.min.js"></script>
 <link href="learning_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="learning_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="learning_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="learning_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="learning_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="learning_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="learning_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
 
 
 </head>
@@ -109,8 +109,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>post_meal_data <span class="ot">&lt;-</span> <span class="fu">read_csv2</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/post-meal-insulin.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>post_meal_data <span class="ot">&lt;-</span> <span class="fu">read_csv2</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data/post-meal-insulin.csv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="about-me" class="level2">
 <h2 class="anchored" data-anchor-id="about-me">About me</h2>
@@ -158,8 +157,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="basic-data-visualization">9 - Basic data visualization</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(post_meal_data,<span class="fu">aes</span>(<span class="at">x =</span> BMI)) <span class="sc">+</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">10</span>)<span class="sc">+</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_viridis</span>(<span class="at">discrete=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-bmi-histo" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -177,23 +175,131 @@ Figure&nbsp;1: Distribution of BMI.
 <section id="exercise-discrete-plots" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-discrete-plots">Exercise: discrete plots</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(post_meal_data, <span class="fu">aes</span>(<span class="at">x =</span> Group)) <span class="sc">+</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>post_meal_data <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Group,<span class="at">fill=</span><span class="fu">as.factor</span>(glykemi)))<span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>()<span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">fill=</span><span class="st">"Glykemi"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-group" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-Discrete-plots" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-group-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="learning_files/figure-html/fig-group-1.png" class="img-fluid figure-img" width="672">
+<div aria-describedby="fig-Discrete-plots-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="learning_files/figure-html/fig-Discrete-plots-1.png" class="img-fluid figure-img" width="672">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-group-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Group
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Discrete-plots-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Glykemi and Groups
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>See <strong>?@fig-___</strong> above for a cool plot!</p>
-<p>```</p>
+</section>
+<section id="side-by-side-plots" class="level2">
+<h2 class="anchored" data-anchor-id="side-by-side-plots">Side by side plots</h2>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(post_meal_data, <span class="fu">aes</span>(<span class="at">x =</span> BMI)) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">10</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(post_meal_data, <span class="fu">aes</span>(<span class="at">x =</span> glykemi)) <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fig-bmi-glycemia" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bmi-glycemia-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-bmi-glycemia" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-bmi-glycemia-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-bmi-glycemia-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="learning_files/figure-html/fig-bmi-glycemia-1.png" class="img-fluid figure-img" data-ref-parent="fig-bmi-glycemia" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-bmi-glycemia-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Distribution of BMI.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-bmi-glycemia" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-bmi-glycemia-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-bmi-glycemia-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="learning_files/figure-html/fig-bmi-glycemia-2.png" class="img-fluid figure-img" data-ref-parent="fig-bmi-glycemia" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-bmi-glycemia-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Number of those with glycemia.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bmi-glycemia-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: BMI and glycemia, side by side.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="plotting-two-continuous-variables" class="level2">
+<h2 class="anchored" data-anchor-id="plotting-two-continuous-variables">9.11 Plotting two continuous variables</h2>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>post_meal_data <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> BMI, <span class="at">y =</span> auc_pg)) <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>post_meal_data <span class="sc">|&gt;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> BMI, <span class="at">y =</span> auc_pg)) <span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hex</span>()</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>post_meal_data <span class="sc">|&gt;</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> BMI, <span class="at">y =</span> auc_pg)) <span class="sc">+</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">fill =</span> <span class="st">"red4"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
+</div>
+<div id="fig-BMI-auc_pg" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-BMI-auc_pg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-BMI-auc_pg" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-BMI-auc_pg-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-BMI-auc_pg-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="learning_files/figure-html/fig-BMI-auc_pg-1.png" class="img-fluid figure-img" data-ref-parent="fig-BMI-auc_pg" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-BMI-auc_pg-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) geom point
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-BMI-auc_pg" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-BMI-auc_pg-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-BMI-auc_pg-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="learning_files/figure-html/fig-BMI-auc_pg-2.png" class="img-fluid figure-img" data-ref-parent="fig-BMI-auc_pg" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-BMI-auc_pg-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) geom hex
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-BMI-auc_pg" style="flex-basis: 33.3%;justify-content: flex-start;">
+<div id="fig-BMI-auc_pg-3" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-BMI-auc_pg-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="learning_files/figure-html/fig-BMI-auc_pg-3.png" class="img-fluid figure-img" data-ref-parent="fig-BMI-auc_pg" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-BMI-auc_pg-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(c) geom point and geom smooth
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-BMI-auc_pg-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: BMI and auc_pg,
+</figcaption>
+</figure>
+</div>
 </section>
 </section>
 
