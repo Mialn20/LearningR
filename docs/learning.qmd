@@ -18,8 +18,6 @@ post_meal_data <- read_csv2(here::here("data/post-meal-insulin.csv"))
 
 ## About me
 
--   PhD student
-
 -   Owns many shrimps
 
 -   From SDU, FGM, ATLAS
