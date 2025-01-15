@@ -2,16 +2,17 @@
 title: "Reproducible documents"
 author: "Mikkel Alnor"
 format: html
-code-fold: true
-theme: sketchy   # cosmo bootswatch theme
+code-fold: FALSE
+theme: Morph   # cosmo bootswatch theme
+highlight-style: dracula
 ---
 
 # Setup code chuck
 
-```{r setup}
+```{r setup, message=FALSE,warning=FALSE}
 library(knitr)
 library(tidyverse)
-post_meal_data <- read_csv2(here::here("~/Desktop/LearningR/data/post-meal-insulin.csv"))
+post_meal_data <- read_csv2(here::here("data/post-meal-insulin.csv"))
 ```
 
 ## About me
@@ -43,7 +44,7 @@ post_meal_data
 
 ```
 
-```{r, eval=FALSE}
+```{r,echo=T, results='hide'}
 
 glimpse(post_meal_data)
 head(post_meal_data)
