@@ -14,6 +14,8 @@ library(knitr)
 library(tidyverse)
 library(ggplot2)
 post_meal_data <- read_csv2(here::here("data/post-meal-insulin.csv"))
+
+small_post_meal_data <- select(post_meal_data, id, Age,BMI,Group,auc_pg,auc_ins,glykemi)
 ```
 
 ## About me
@@ -133,3 +135,26 @@ post_meal_data |>
 \### Pushing changes to remote
 
 \### pulling
+
+# **11 - Data management and wrangling**
+
+```{r}
+post_meal_data|>
+  select(Insulin10)
+
+post_meal_data|>
+  select(-Group)
+
+post_meal_data|>
+  select(Age,BMI,Weight)
+
+post_meal_data|>
+  select(starts_with("PG"))
+
+post_meal_data|>
+  select(ends_with("DXA"))
+
+post_meal_data|>
+  select(contains("0"))
+
+```
