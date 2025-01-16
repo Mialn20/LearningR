@@ -23,7 +23,9 @@ tidier_post_meal_data <- small_post_meal_data |>
     auc_insulin = auc_ins
   ) |>
   filter(glykemi == 0) |>
-  select(-glykemi)
+  select(-glykemi) |> 
+  mutate(insulin_glucose_ratio = auc_insulin / auc_glucose, Group = if_else (Group == "CTR", "Control", "First Degree Relative")) |> 
+  mutate(Overweight = if_else(BMI >= 25 , "Overweight", "Not Overweight"))
 ```
 
 ## About me
@@ -190,7 +192,9 @@ post_meal_data |>
   select(contains(".."), -contains("...")) |>
   rename_with(~ gsub("..", ".minus", .x, fixed = TRUE))
 ```
+
 ## filtering data by row
+
 ```{r}
 small_post_meal_data |>
   filter(glykemi == 1)
@@ -217,6 +221,7 @@ tidier_post_meal_data |>
     Group = if_else(Group == "CTR", "Control", "First Degree Relative")
   )
 ```
+
 ## 11.9 Exercise: Practice with filter and mutate
 
 ```{r}
@@ -230,4 +235,42 @@ post_meal_data |>
     percent_body_fat = (Fat.mass.DXA / Weight) * 100
   ) |>
   filter(percent_body_fat > 30)
+```
+
+## 12.2
+
+```{r}
+
+tidier_post_meal_data |> 
+  mutate(Overweight = if_else(BMI >= 25 , TRUE, FALSE))
+
+
+
+```
+
+```{r}
+tidier_post_meal_data |> 
+  ggplot(aes(x=Overweight,y=insulin_glucose_ratio))+
+  geom_jitter(width=0.2)
+```
+
+```{r}
+tidier_post_meal_data |> 
+  filter(BMI<30) |> 
+  ggplot(aes(x=Age,y=auc_insulin,color=Group))+
+  geom_point()
+```
+
+```{r}
+tidier_post_meal_data |>
+  filter(BMI < 30) |>
+  mutate(young = if_else(Age < 40, "Young", "Old")) |>
+  ggplot(aes(x = BMI, y = insulin_glucose_ratio, color = Group)) +
+  geom_point() +
+  facet_grid(rows = vars(young)) +
+  labs(
+    x = "Body mass index",
+    y = "Insulin glucose ratio"
+  )
+
 ```
