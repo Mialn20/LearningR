@@ -207,3 +207,27 @@ small_post_meal_data |>
 small_post_meal_data |>
   filter(Group == "CTR" | BMI >= 25)
 ```
+
+## 11.8 Modify or add column
+
+```{r}
+tidier_post_meal_data |>
+  mutate(
+    insulin_glucose_ratio = auc_insulin / auc_glucose,
+    Group = if_else(Group == "CTR", "Control", "First Degree Relative")
+  )
+```
+## 11.9 Exercise: Practice with filter and mutate
+
+```{r}
+# Task 1.
+post_meal_data |>
+  filter(BMI >= 20 & BMI <= 40 & Group == "FDR")
+
+# Task 2.
+post_meal_data |>
+  mutate(
+    percent_body_fat = (Fat.mass.DXA / Weight) * 100
+  ) |>
+  filter(percent_body_fat > 30)
+```
