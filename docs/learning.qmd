@@ -274,3 +274,154 @@ tidier_post_meal_data |>
   )
 
 ```
+
+## Make multi-dimensional plots!
+
+```{r}
+#| label: fig-multidimensional
+#| fig-cap: "Two, mult-dimensional plots of our data."
+#| fig-subcap:
+#|   - "Distribution of percent body fat by group and age category."
+#|   - "Relationship between BMI and bone mineral density, split by insulin sensitivity."
+#| layout-ncol: 2
+
+
+post_meal_data |>
+  mutate(
+    percent_body_fat = (Fat.mass.DXA / Weight) * 100)
+
+post_meal_data |>
+  mutate(percent_body_fat = (Fat.mass.DXA / Weight) * 100,
+    young = if_else(Age < 40, "Young", "Old")) |>
+  ggplot(aes(x = Group, y = percent_body_fat, colour = young)) +
+  geom_jitter(width = 0.2)
+
+```
+
+```{r}
+post_meal_data |> 
+  rename(
+    auc_glucose = auc_pg,
+    auc_insulin = auc_ins
+  ) |> 
+  mutate(
+    insulin_glucose_ratio = auc_insulin / auc_glucose,
+    insulin_insensitive = if_else(insulin_glucose_ratio >= mean(insulin_glucose_ratio), "Sensitive", "Insensitive")) |> 
+  ggplot(aes(x=BMI,y=Bone.mineral.DXA,color=insulin_insensitive))+
+  geom_point()+
+  geom_smooth()+
+  facet_grid(cols = vars(insulin_insensitive))
+```
+
+```{r}
+# This is an example of what the code will look like:
+#| label: fig-multidimensional
+#| fig-cap: "Two, mult-dimensional plots of our data."
+#| fig-subcap:
+#|   - "Distribution of percent body fat by group and age category."
+#|   - "Relationship between BMI and bone mineral density, split by insulin sensitivity."
+#| layout-ncol: 2
+
+
+
+# Task 2.
+post_meal_data |>
+  mutate(
+    insulin_glucose_ratio = (auc_ins / auc_pg),
+    insulin_insensitive = if_else(insulin_glucose_ratio > mean(insulin_glucose_ratio), "Insensitive", "Sensitive")
+  ) |>
+  ggplot(aes(x = BMI, y = Bone.mineral.DXA)) +
+  geom_point() +
+  geom_smooth() +
+  facet_grid(cols = vars(insulin_insensitive))
+```
+
+## Changing colours
+
+```{r}
+
+# Tasks 1. and 2.
+post_meal_data |>
+  mutate(hyperglycemia = if_else(glykemi == 1, "Yes", "No")) |>
+  ggplot(aes(x = Group, fill = hyperglycemia)) +
+  geom_bar(position = position_dodge()) +
+  scale_fill_viridis_d(option = "cividis")
+
+# Tasks 3. and 4.
+post_meal_data |>
+  ggplot(aes(x = auc_pg, y = auc_ins, colour = BMI)) +
+  geom_point() +
+  scale_colour_viridis_c(option = "inferno")
+
+```
+
+## **13 Split, apply, and combine**
+
+```{r}
+
+tidier_post_meal_data |>
+  summarise(max_bmi = max(BMI),
+            min_bmi = min(BMI),
+            mean_bmi = mean(BMI)
+            )
+
+tidier_post_meal_data |>
+  group_by(Group) |> 
+  summarise(max_bmi = max(BMI),
+            mean_bmi = mean(BMI)
+            )
+
+tidier_post_meal_data |>
+  group_by(Group) |>
+  summarise(
+    mean_age = mean(Age),
+    mean_bmi = mean(BMI)
+  ) |>
+  ungroup() |>
+  knitr::kable()
+```
+
+```{r}
+#| label: tbl-mean-age-bmi
+#| tbl-cap: "Mean values of Age and BMI for each group."
+tidier_post_meal_data |>
+  group_by(Group) |>
+  summarise(
+    "Mean Age (yrs)" = round(mean(Age), 1),
+    "Mean BMI (kg/m**)" = round(mean(BMI), 1)
+  ) |>
+  ungroup() |>
+  knitr::kable()
+
+```
+
+## 13.6
+
+```{r}
+#| label: tbl-summary-table
+#| fig-cap: "Median values of AUC measurements by age group and family history group."
+
+post_meal_data |>
+  # Task 2.
+  filter(BMI < 30) |>
+  # Task 3.
+  mutate(
+    age_group = if_else(Age < 40, "Young", "Old"),
+    Group = if_else(Group == "CTR", "Control", "First-degree relative")
+  ) |>
+  # Task 4.
+  group_by(Group, age_group) |>
+  summarise(
+    "AUC c-Peptide" = round(median(auc_cp), 1),
+    "AUC Glucose" = round(median(auc_pg), 1),
+    "AUC Insulin" = round(median(auc_ins), 1)
+  ) |>
+  # Task 5.
+  rename(
+    "Age group" = age_group,
+    "Family history" = Group
+  ) |>
+  # Task 6.
+  ungroup() |>
+  knitr::kable()
+```
