@@ -388,7 +388,7 @@ tidier_post_meal_data |>
   group_by(Group) |>
   summarise(
     "Mean Age (yrs)" = round(mean(Age), 1),
-    "Mean BMI (kg/m**)" = round(mean(BMI), 1)
+    "Mean BMI (kg/m^2^)" = round(mean(BMI), 1)
   ) |>
   ungroup() |>
   knitr::kable()
@@ -399,7 +399,7 @@ tidier_post_meal_data |>
 
 ```{r}
 #| label: tbl-summary-table
-#| fig-cap: "Median values of AUC measurements by age group and family history group."
+#| tbl-cap: "Median values of AUC measurements by age group and family history group."
 
 post_meal_data |>
   # Task 2.

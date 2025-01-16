@@ -1021,7 +1021,7 @@ Figure&nbsp;5: Two, mult-dimensional plots of our data.
 <span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group) <span class="sc">|&gt;</span></span>
 <span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
 <span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Mean Age (yrs)"</span> <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">mean</span>(Age), <span class="dv">1</span>),</span>
-<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Mean BMI (kg/m^{2})"</span> <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">mean</span>(BMI), <span class="dv">1</span>)</span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Mean BMI (kg/m^2^)"</span> <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">mean</span>(BMI), <span class="dv">1</span>)</span>
 <span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
 <span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
 <span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1037,7 +1037,7 @@ Table&nbsp;1: Mean values of Age and BMI for each group.
 <tr class="header">
 <th style="text-align: left;">Group</th>
 <th style="text-align: right;">Mean Age (yrs)</th>
-<th style="text-align: right;">Mean BMI (kg/m^{2})</th>
+<th style="text-align: right;">Mean BMI (kg/m<sup>2</sup>)</th>
 </tr>
 </thead>
 <tbody>
@@ -1061,7 +1061,7 @@ Table&nbsp;1: Mean values of Age and BMI for each group.
 </section>
 <section id="section-1" class="level2">
 <h2 class="anchored" data-anchor-id="section-1">13.6</h2>
-<div id="tbl-summary-table" class="cell anchored">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>post_meal_data <span class="sc">|&gt;</span></span>
 <span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Task 2.</span></span>
 <span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(BMI <span class="sc">&lt;</span> <span class="dv">30</span>) <span class="sc">|&gt;</span></span>
@@ -1089,8 +1089,14 @@ Table&nbsp;1: Mean values of Age and BMI for each group.
 <pre><code>`summarise()` has grouped output by 'Group'. You can override using the
 `.groups` argument.</code></pre>
 </div>
+<div id="tbl-summary-table" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-summary-table-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Median values of AUC measurements by age group and family history group.
+</figcaption>
+<div aria-describedby="tbl-summary-table-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 31%">
 <col style="width: 14%">
@@ -1138,7 +1144,9 @@ Table&nbsp;1: Mean values of Age and BMI for each group.
 </tr>
 </tbody>
 </table>
-<p>Median values of AUC measurements by age group and family history group.</p>
+</div>
+</div>
+</figure>
 </div>
 </div>
 </section>
